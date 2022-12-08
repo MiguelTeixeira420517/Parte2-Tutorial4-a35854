@@ -65,10 +65,12 @@ public class GAgent : MonoBehaviour
         if (planner == null || actionQueue == null)
         {
             planner = new GPlanner();
+
             var sortedGoals = from entry in goals orderby entry.Value descending select entry;
+
             foreach(KeyValuePair<SubGoal, int> sg in sortedGoals)
             {
-                actionQueue = planner.plan(actions, sg.Key.sgoals, null);
+                actionQueue = planner.plan(actions, sg.Key.sgoals, beliefs);
                 if (actionQueue != null)
                 {
                     currentGoal = sg.Key;
